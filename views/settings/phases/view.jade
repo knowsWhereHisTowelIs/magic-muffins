@@ -1,0 +1,18 @@
+extends ../../includes/layout
+
+block content
+    .container 
+        h1  #{phase.name}
+        .actions
+            .button-bar
+                button.button.button-stable.button-block Actions
+                button.button.button-stable.button-block(data-toggle="collapse" data-target="#view-details") Details
+                button.button.button-stable.button-block(data-toggle="collapse" data-target="#view-docs") Docs
+                a.button.button-stable.button-block(href='/calendar') Calendar
+            #view-details.collapse
+                p #{phase.description}
+            #view-docs.collapse
+                p DOCUMENTS
+        #projects.col-xs-12.ajax_content.ajax_table
+            div.ajax_table_content(data-paged='1', data-url='#{global.REQUEST.slashedUrl}get_list/')
+                p Loading...

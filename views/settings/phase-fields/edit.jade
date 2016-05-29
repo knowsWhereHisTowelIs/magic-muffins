@@ -1,0 +1,91 @@
+extends ../../includes/layout
+
+block content
+    .container 
+        
+        .actions
+            .button-bar
+                a.btn.btn-default(href="#{deleteUrl}") Delete
+
+        .spacer
+        
+        .row
+            each msg in msgs
+                h2.alert.alert-info(role="alert") #{msg}
+            #error-msgs
+
+        .spacer
+
+        .row
+            p.alert.alert-warning(role="alert")
+                | Please note this is a developer section
+            p.alert.alert-info(role="alert")
+                | All fields with the word 
+                b 'Attributes' 
+                | must be JSON objects where each field corresponds to a HTML attribute, there can be any attributes specified.
+                br
+                | Example for a 'div' tag: &lt;div class="col-xs-12" data-msg="Look at me!"&gt;[CONTENT]&lt;/div&gt;
+                br 
+                | {"class": "col-xs-12", "data-msg":"Look at me!"} 
+            p.alert.alert-info(role="alert")
+                | The 
+                b 'Option'
+                | field is used only if 
+                b 'Field Tag'
+                | is a HTML 'select' tag. Options must be formatted as a JSON array of objects,
+                | where each object has only value, and text column.
+                br
+                | Example for:
+                | &lt;option value="1"&gt;a&lt;/option&gt;
+                | &lt;option value="2"&gt;b&lt;/option&gt;
+                | &lt;option value="3"&gt;c&lt;/option&gt;
+                br
+                | [{"value":1, "text":"a"}, {"value":2, "text":"b"}, {"value":3, "text":"c"}]
+                br 
+                | Note if value isn't specified it will default to text
+            p.alert.alert-info(role="alert")
+                | 'Field Text' is only used if 'Field Tag' is a textarea
+            p.alert.alert-info(role="alert")
+                | In any 'Text' field feel free to enter any straight HTML
+                
+
+        form.get_errors.row(method="post")
+            .row.colored-rows
+                //-
+                    pre #{JSON.stringify(fieldData, null, 2)}
+
+                +custom_field("phase_id", fieldData.phase_id, global.FORM_PREFIX)
+                +custom_field("name", fieldData.name, global.FORM_PREFIX)
+                +custom_field("description", fieldData.description, global.FORM_PREFIX)
+                +custom_field("position", fieldData.position, global.FORM_PREFIX)
+                +custom_field("tips", fieldData.tips, global.FORM_PREFIX)
+                +custom_field("before_field_label_attributes", fieldData.before_field_label_attributes, global.FORM_PREFIX)
+                +custom_field("before_field_label_text", fieldData.before_field_label_text, global.FORM_PREFIX)
+                +custom_field("field_tag", fieldData.field_tag, global.FORM_PREFIX)
+                +custom_field("field_attributes", fieldData.field_attributes, global.FORM_PREFIX)
+                +custom_field("field_text", fieldData.field_text, global.FORM_PREFIX)
+                +custom_field("options", fieldData.options, global.FORM_PREFIX)
+                +custom_field("default", fieldData.default, global.FORM_PREFIX)
+                
+                hr
+                p Field styles below
+                hr
+                
+                +custom_field("pre_container", fieldData.pre_container, global.FORM_PREFIX)
+                +custom_field("pre_container_attributes", fieldData.pre_container_attributes, global.FORM_PREFIX)
+                +custom_field("post_container_tag", fieldData.post_container_tag, global.FORM_PREFIX)
+                +custom_field("post_container_attributes", fieldData.post_container_attributes, global.FORM_PREFIX)
+                +custom_field("before_field_label_tag", fieldData.before_field_label_tag, global.FORM_PREFIX)
+                
+                +custom_field("field_container_tag", fieldData.field_container_tag, global.FORM_PREFIX)
+                +custom_field("field_container_attributes", fieldData.field_container_attributes, global.FORM_PREFIX)
+                
+                .spacer
+                
+                .row(style="background:none;")
+                    .col-xs-12.col-sm-3.col-sm-offset-9
+                        input.form-control(type="submit", value="Edit")
+                        input(type="hidden", name="submitted", value="1")
+
+                .spacer
+        

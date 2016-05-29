@@ -1,0 +1,23 @@
+extends ../../includes/layout
+
+block content    
+    #topnav
+        .container-fluid
+            .row
+                .col-xs-12
+                    .tnbutton
+                        a.btn.btn-default(href='#{global.REQUEST.slashedUrl}add/') Add New
+            .spacer
+        .container-fluid.table-title
+            .row
+                .col-xs-8
+                    h1 #{title}
+                .col-xs-4
+                    a(href='#')
+                        i.icon-icon-asce
+                    a(href='#')
+                        i.icon-icon-desc
+    .col-xs-12.ajax_content.ajax_table
+        div.ajax_table_content(data-paged='1', data-url='#{global.REQUEST.slashedUrl}get_list/')
+            p Loading...
+    

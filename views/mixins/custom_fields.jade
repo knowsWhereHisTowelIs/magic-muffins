@@ -1,0 +1,32 @@
+//-
+    Example usage:
+            +custom_field()
+
+mixin custom_field(column, value, prefix, defaultVal)
+    if (column === null)
+        - column = "";
+    if (value === null)
+        if ( defaultVal ) 
+            - value = defaultVal;
+        else
+            - value = "";
+    if (prefix === null)
+        - prefix = "";
+    .row.nice-row
+        .col-xs-6.col-sm-4
+            label.form-label(for="#{column}") #{global.getKeyNiceName(column)}
+        .col-xs-6.col-sm-8
+            if( typeof value === "string" && value.length > global.MIN_TEXT_AREA_LENGTH ) 
+                textarea.form-control(name="#{prefix}#{column}") #{value}
+            else if ( typeof value === 'object' )
+                select.form-control(name="#{prefix}#{column}")
+                    each row in value.options
+                        if( ! row.value ) 
+                            - row.value = row.text;
+                        -var selectedAttr = {};
+                        if( row.value == value.selected ) 
+                            -selectedAttr.selected = "selected";
+                        option(value="#{row.value}")&attributes(selectedAttr) !{row.text}
+            else
+                input.form-control(name="#{prefix}#{column}", value="#{value}")
+     

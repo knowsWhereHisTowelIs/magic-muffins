@@ -1,0 +1,30 @@
+//-
+    Example usage:
+    .upload-repeater
+        .file-upload-repeater(data-repeater-list='file_uploads')
+            +file_repeater_row(caption, filename)
+        .col-xs-12.text-right
+            span#repeater-row-add.btn.btn-info.btn-md(data-repeater-create='')
+                span.glyphicon.glyphicon-plus Add
+
+mixin file_repeater_row(caption, filename)
+    -caption = typeof caption === 'string' && caption.length > 0 ? caption : '';
+    -filename = typeof filename === 'string' && filename.length > 0 ? filename : '';
+    .row(data-repeater-item='')
+        .col-xs-5
+            .col-xs-4
+                label.form-label File
+            .col-xs-8
+                input.form-control(name="media", type="file", accept="audio/*,video/*,image/*")
+
+        .col-xs-5
+            .col-xs-4
+                label.form-label Caption
+            .col-xs-8
+                input.form-control(name="caption", value="#{caption}", placeholder="Caption")
+
+        .col-xs-2
+            span.btn.btn-danger.btn-sm(data-repeater-delete='')
+                i.glyphicon.glyphicon-remove Delete
+
+        .col-xs-12 &nbsp;

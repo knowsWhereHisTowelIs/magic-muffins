@@ -1,0 +1,24 @@
+extends includes/layout
+
+block content
+    h1 #{title}
+    .col-xs-12
+        form(action='{$CURRENT_PAGE_URL}', method='POST')
+            .col-xs-4
+                span.col-xs-12 Projects:
+                    select
+                        option test
+            .col-xs-4
+                span.col-xs-12 Users:
+                    select
+                        option test
+            .col-xs-4
+                span.col-xs-12 Status (closed, open, pending?):
+                    select
+                        option test
+            .col-xs-12.text-right
+                input(type='submit', value='Search')
+    
+    #tasks-table.borderedBox.col-xs-12.ajax_content
+        div.ajax_table_content(data-paged='1')
+            p Loading...

@@ -1,0 +1,49 @@
+extends ../includes/layout
+
+block content
+    .container 
+        h1 #{project.name}
+        .actions
+            .button-bar
+                button.button.button-stable.button-block Actions
+                button.button.button-stable.button-block(data-toggle="collapse" data-target="#view-details") Details
+                button.button.button-stable.button-block(data-toggle="collapse" data-target="#view-docs") Docs
+                a.button.button-stable.button-block(href='/calendar') Calendar
+            #view-details.collapse
+                p #{project.description}
+                p 
+                    strong #{sprintf("%s, %s %s", project.street, project.city, project.zip)}
+            #view-docs.collapse
+                p DOCUMENTS
+        h2 Project Phase: #{phase}
+            
+        form.list.ng-pristine.ng-valid.ng-submitted 
+            each field in phaseFields 
+                #{field.preJade}&attributes{field.preJadeAttributes}
+                    #{field.preField}&attributes{field.preFieldAttributes} #{field.preFieldText}
+                    #{field.tagContainer}&attributes{field.tagContainerAttributes}
+                        #{field.tag}&attributes{field.tagAttributes} #{field.text}
+                            each row in field.options
+                                option(value="#{row.value}") #{row.text}
+                #{field.postJade}
+            label.item.item-input
+                span.input-label Relevant input or action
+                input(type='text', placeholder='')
+            label.item.item-input
+                span.input-label Relevant input or action
+                input(type='text', placeholder='')
+            label.item.item-input
+                span.input-label Relevant input or action
+                input(type='text', placeholder='')
+            label.item.item-input
+                span.input-label Relevant input or action
+                input(type='text', placeholder='')
+            .button-bar
+                button.button.button-stable.button-block Save
+                button.button.button-stable.button-block Next Phase
+        //details
+        //docs
+        //calendar
+
+        //description
+        //phases

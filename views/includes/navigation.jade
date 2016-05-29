@@ -1,0 +1,38 @@
+.row.main-container-inner
+    #topnav.topnav
+        ul(class="nav nav-tabs")
+            li() 
+                a(href="/dashboard/") 
+                    i(class="icon-dashboard") 
+                    span(class="menu-text") Dashboard
+            li(class="dropdown")
+                a(href="/users/") 
+                    i(class="icon-group") 
+                    span(class="menu-text") User 
+                    b(class="arrow icon-angle-down")
+                ul(class="dropdown-menu")
+                    li()
+                        a(href="") 
+                            i(class="icon-double-angle-right") Email?
+            li() 
+                a(href="/projects/") 
+                    i(class="icon-dashboard") 
+                    span(class="menu-text") Projects
+            li(class="dropdown")
+                a(href="/phases/") 
+                    i(class="icon-group") 
+                    span(class="menu-text") Phases 
+                    b(class="arrow icon-angle-down")
+                ul(class="dropdown-menu")
+                    li()
+                        a(href="/phases/?cat=1") 
+                            i(class="icon-double-angle-right") Category Example
+            li(class="dropdown")
+                a(href="/example/") 
+                    i(class="icon-group") 
+                    span(class="menu-text") EXAMPLES 
+                    b(class="arrow icon-angle-down")
+                ul(class="dropdown-menu")
+                    li()
+                        a(href="/ajax/json_example") 
+                            i(class="icon-double-angle-right") json_example

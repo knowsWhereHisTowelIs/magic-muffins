@@ -1,0 +1,67 @@
+extends includes/layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    p
+        | Tutorial on jade template
+        a(href='http://jade-lang.com/tutorial/' target='_blank')  here
+    p
+        | jump to 
+        a(href='#poop') poop
+    p(id='poop') here be poop
+    hr
+    pre 
+        | Unescaped: \n
+        | !{JSON.stringify(asdf)}
+    hr
+    pre 
+        | Escaped:
+        | #{JSON.stringify(asdf)}
+    pre testing \n
+
+    .col-xs-12
+        form(action='{$CURRENT_PAGE_URL}', method='POST')
+            .col-xs-4
+                span.col-xs-12 Projects:
+                    select
+                        option test
+            .col-xs-4
+                span.col-xs-12 Users:
+                    select
+                        option test
+            .col-xs-4
+                span.col-xs-12 Status (closed, open, pending?):
+                    select
+                        option test
+            .col-xs-12.text-right
+                input(type='submit', value='Search')
+
+    #tasks-table.borderedBox.col-xs-12
+        if typeof(tableRows) !== 'undefined' && tableRows.constructor == Array && tableRows.length > 0 
+            +my_pagination(request.param('paged'), foundRows)
+
+            table.col-xs-12(border='1')
+                thead
+                    tr
+                        th
+                            //row count
+                        each column in tableColumns
+                            th #{column}
+                tbody
+                   - var rowIndex = 0;
+                    each row in tableRows
+                        tr
+                            td #{++rowIndex}
+                            td #{row.name}
+                            td #{row.random}
+                tfoot
+                    tr
+                        th
+                            //row count
+                        each column in tableColumns 
+                            th #{column}
+
+            +my_pagination(request.param('paged'), foundRows)
+        else
+            p Sorry, nothing matched your filter

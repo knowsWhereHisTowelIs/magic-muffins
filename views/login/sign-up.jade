@@ -1,0 +1,56 @@
+extends ../includes/layout
+
+block content
+    form.get_errors.container(method="post")
+        .row
+            .col-xs-12
+                each msg in msgs
+                    p.alert.alert-info(role="alert") #{msg}
+                #error-msgs
+
+        .row
+            .actions
+                //- 
+                    .form-group.button-bar
+                        .col-xs-4
+                            button.btn.btn-default.form-control(type="button", data-toggle="collapse" data-target="#view-details") Details
+                        .col-xs-4
+                            button.btn.btn-default.form-control(type="button", data-toggle="collapse" data-target="#view-docs") Docs
+                        .col-xs-4
+                            a.btn.btn-default.form-control(href='/calendar') Calendar
+                
+                #view-details
+                    .col-xs-12
+                        input.form-control(name="#{userPrefix}email", placeholder="Email") 
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-6
+                        input.form-control(name="#{userPrefix}first", placeholder="First Name") 
+                    .col-xs-6
+                        input.form-control(name="#{userPrefix}last", placeholder="Last")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12
+                        input.form-control(name="#{userPrefix}title", placeholder="Title") 
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-6
+                        input.form-control(name="#{userPrefix}phone", placeholder="Phone #") 
+                    .col-xs-6
+                        input.form-control(name="#{userPrefix}phone2", placeholder="Secondary Phone #") 
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-6
+                        .form-control
+                            label Password
+                    .col-xs-6
+                        input.form-control(name="#{userPrefix}password", value="", placeholder="Password") 
+                        input.form-control(name="#{userPrefix}passwordConfirm", value="", placeholder="Password Confirmation") 
+        .row
+            .col-xs-12
+                input.btn.btn-default(type="submit", value="Register")
+                input(type="hidden", name="submitted", value="1")

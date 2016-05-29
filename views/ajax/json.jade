@@ -1,0 +1,5 @@
+if( !global.REQUEST.xhr ) 
+    //- not ajax
+    pre !{JSON.stringify(data, null, 2)}
+else
+    | !{JSON.stringify(data, null, 2)}

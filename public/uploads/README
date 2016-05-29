@@ -1,0 +1,4 @@
+Upload naming structure
+/uploads/projects/[PROJECT_ID]/[PHASE_ID]/[UID]/
+/uploads/field-reports/[FIELD_REPORT_ID]/[UID]/
+/uploads/YYYY/MM/DD/UID/

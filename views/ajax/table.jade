@@ -1,0 +1,38 @@
+//-generates the innerds of tables 2 be paired with ajax
+include ../includes/all_includes
+
+//-debugging
+if( 0 )
+    pre
+        | #{JSON.stringify(request.body, null, 2)}
+        | rows: #{JSON.stringify(rows, null, 2)}
+        | pageNum: #{JSON.stringify(pageNum, null, 2)}
+        | foundRows: #{JSON.stringify(foundRows, null, 2)}
+        | columns: #{JSON.stringify(columns, null, 2)}
+
+if typeof(rows) !== 'undefined' && rows.constructor == Array && rows.length > 0 
+    +my_pagination(pageNum, foundRows)
+
+    table.col-xs-12(border='1',class='loading_table',data-name='asdf')
+        thead
+            tr
+                th
+                    //row count
+                each columnNiceName, columnKey in columns
+                    th #{columnNiceName}
+        tbody
+            each row, rowIndex in rows
+                tr
+                    td #{rowIndex+1}
+                    each columnNiceName, columnKey in columns
+                        td !{row[columnNiceName]}
+        tfoot
+            tr
+                th
+                    //row count
+                each columnNiceName, columnKey in columns
+                    th #{columnNiceName}
+
+    +my_pagination(pageNum, foundRows)
+else
+    p Sorry, nothing was found.

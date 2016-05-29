@@ -1,0 +1,25 @@
+//-
+    Example usage:
+            +field_report_uploaded_files(...)
+
+mixin field_report_uploaded_files(fieldReportFiles)
+    .already-uploaded
+        .field-report-files
+            h1 Field Report Files
+            .col-xs-12
+                if( fieldReportFiles.length > 0 )
+                    ul.colored-rows
+                        each fieldReportFile in fieldReportFiles 
+                            li.row.nice-row
+                                .col-xs-4
+                                    b #{global.getUserNameById(fieldReportFile.uid)}
+                                .col-xs-4
+                                    a(href="#{fieldReportFile.link}")
+                                        if( fieldReportFile.type.indexOf('image') !== -1 ) 
+                                            img(src="#{fieldReportFile.link}", alt="#{fieldReportFile.filename}")
+                                        else
+                                            p  #{fieldReportFile.filename}
+                                .col-xs-4
+                                    p #{fieldReportFile.caption}
+                else
+                    p Field Report doesn't have any files yet

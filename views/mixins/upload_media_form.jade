@@ -1,0 +1,30 @@
+//-
+    Example usage:
+    div
+        +uploadMediaForm()
+
+mixin uploadMediaForm()
+    #media-file-form.row.nice-row
+        .col-xs-12.nopadding
+            .col-xs-12.col-md-6
+                .col-xs-3
+                    label.form-label Upload
+                .col-xs-9
+                    input.form-control(type="file", name="media-file-file", accept="audio/*,video/*,image/*")
+            .col-xs-12.col-md-6
+                .col-xs-3
+                    label.form-label Caption
+                .col-xs-9
+                    input.form-control(name="media-file-caption", placeholder="Caption")
+
+        .hidden-xs.hidden-sm.col-md-12 &nbsp;
+
+        .col-xs-12.nopadding
+            .col-xs-12.col-md-6
+                .col-xs-3
+                    label.form-label Filename
+                .col-xs-9
+                    input.form-control(name="media-file-filename", placeholder="Filename")
+            .col-xs-12.col-md-6
+                .col-xs-12.col-md-9.col-md-offset-3
+                    input.form-control(type="submit")

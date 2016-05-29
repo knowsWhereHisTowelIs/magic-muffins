@@ -1,0 +1,21 @@
+extends ../includes/layout
+
+block content
+    #content.text-center
+        .container-fluid
+            .row
+                .col-sm-2
+                form#login_form.col-sm-8(action='/login/sign-in/')
+                    .form-group
+                        input.tinput.form-control(name='email', placeholder='email address')
+                    .form-group
+                        input.tinput.form-control(name='password', placeholder='password', type='password')
+                    p
+                        input.btn.btn-default(type="submit", name='submit', value="Sign In")
+                    p
+                        a.btn.btn-default(href='/login/sign-up/') Sign Up
+                .col-sm-2
+            //-.row.fpass
+                .col-xs-12
+                    p
+                        a(href='#') forgot password

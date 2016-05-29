@@ -1,0 +1,98 @@
+extends ../includes/layout
+
+block content
+    #topnav
+        .container-fluid
+            .row
+                .col-xs-9
+                    .tnbutton
+                        a.btn.btn-default(href='#{global.REQUEST.slashedUrl}add/') Add Project
+                .col-xs-3
+                    .navbar.navbar-default(role='navigation')
+                        .navbar-header
+                            a(role='button', data-toggle='collapse', href='#collapseSort', aria-expanded='false', aria-controls='collapseSort')
+                                i.icon-icon-menu
+        #collapseSort.collapse
+            #sortby
+                .container-fluid
+                    .row
+                        .col-xs-12
+                            h3 Sort By
+                    .row.sortrow
+                        .col-xs-6
+                            a.btn.btn-default(role='button', data-toggle='collapse', href='#collapseManager', aria-expanded='false', aria-controls='collapseManager')
+                            | Manager 
+                            i.icon-icon-arrow-down
+                        #collapseManager.collapse
+                            ul.nav.nav-pills.nav-stacked
+                                li
+                                    a(href='#') Example
+                                li
+                                    a(href='#') Example
+                                li
+                                    a(href='#') Example
+                                li
+                                    a(href='#') Example
+                        .col-xs-6
+                            a.btn.btn-default(role='button', data-toggle='collapse', href='#collapseCity', aria-expanded='false', aria-controls='collapseCity')
+                                | City 
+                                i.icon-icon-arrow-down
+                            #collapseCity.collapse
+                                ul.nav.nav-pills.nav-stacked
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                    .row.sortrow
+                        .col-xs-6
+                            a.btn.btn-default(role='button', data-toggle='collapse', href='#collapseType', aria-expanded='false', aria-controls='collapseType')
+                                | Type 
+                                i.icon-icon-arrow-down
+                            #collapseType.collapse
+                                ul.nav.nav-pills.nav-stacked
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                        .col-xs-6
+                            a.btn.btn-default(role='button', data-toggle='collapse', href='#collapseState', aria-expanded='false', aria-controls='collapseState')
+                                | State 
+                                i.icon-icon-arrow-down
+                            #collapseState.collapse
+                                ul.nav.nav-pills.nav-stacked
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                                    li
+                                        a(href='#') Example
+                    .row
+                        .col-xs-12
+                            .input-group
+                                input.tinput.form-control(type='text', placeholder='search: client name, city, state, type....')
+                            .input-group-btn
+                                button.btn.btn-search(type='submit')
+                                    i.fa.fa-search
+    .container-fluid.table-title
+        .row
+            .col-xs-8
+                h1 Active Projects
+            .col-xs-4
+                a(href='#')
+                    i.icon-icon-asce
+                a(href='#')
+                    i.icon-icon-desc
+    .col-xs-12.ajax_content.ajax_table
+        div.ajax_table_content(data-paged='1', data-url='#{global.REQUEST.slashedUrl}get_list/')
+            p Loading...
+    

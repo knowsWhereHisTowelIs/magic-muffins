@@ -1,0 +1,51 @@
+.row.colored-rows
+    //- phase fields
+    each field in fields
+        .row.nice-row(data-field-id="#{field.id}")
+            pre.hidden.field-json(data-table="#{table}") !{JSON.stringify(field, null, 2)}
+            -var fieldMediaId = "field-media-" + table + "-" + field.id;
+            div
+                //- pre container
+                #{field.pre_container}&attributes{field.pre_container_attributes}
+                    //-before field label
+                    #{field.before_field_label_tag}&attributes{field.before_field_label_attributes}
+                        | !{field.before_field_label_text}
+                        p #{field.description}
+                        p
+                            i #{field.tips}
+                    //field container
+                    #{field.field_container_tag}&attributes{field.field_container_attributes}
+                        //- field tag
+                        if ( field.isFileType === true && typeof field.fileInfo === 'object' && typeof field.fileInfo.type === 'string' )
+                            if( field.fileInfo.type.indexOf("image") !== -1 )
+                                a(href="#{field.fileInfo.link}", target="_blank")
+                                    img(src="#{field.fileInfo.link}", alt="#{field.fileInfo.filename}")
+                            else
+                                a(href="#{field.fileInfo.link}", target="_blank") #{field.fileInfo.filename}
+
+                        #{field.field_tag}&attributes{field.field_attributes}
+                            //-field text
+                            | !{field.field_text}
+                            //-row
+                            each row in field.options
+                                if( ! row.value ) 
+                                    - row.value = row.text;
+                                -var selectedAttr = {};
+                                if( row.value == field.value ) 
+                                    -selectedAttr.selected = "selected";
+                                option(value="#{row.value}")&attributes(selectedAttr) !{row.text}
+                // post container
+                #{field.post_container}
+            div
+                .col-xs-12
+                    a.btn.btn-default(data-toggle="collapse", data-target="##{fieldMediaId}") Media
+                .col-xs-12(id="#{fieldMediaId}").collapse
+                    .ajax-replace(data-resource="#{resource}", data-resourceId="#{resourceId}", data-fieldName="#{field.name}")
+                        .field-all-media.col-sm-6
+                            
+                        .field-upload-media.col-sm-6
+                            .col-xs-9
+                                input.form-control.uploader(type="file", accepts="") 
+                            .col-xs-3
+                                button.upload-btn.btn.default-btn(type="button", data-resource="#{resource}", data-resource-id="#{resourceId}",
+                                    data-field-id="#{field.id}}") Upload

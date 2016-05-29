@@ -1,0 +1,39 @@
+extends ../../includes/layout
+
+block content
+    .container
+        .col-xs-12
+            each msg in msgs
+                p.alert.alert-info(role="alert") #{msg}
+            #error-msgs
+        //-pre !{JSON.stringify(fields, NULL, 2)}
+        form.get_errors.col-xs-12.colored-rows(method="post")
+            each field in fields
+                -var value = field.Default;
+                if (value === null)
+                    - value = "";
+                -var column = field.Field;
+                .row.nice-row
+                    .col-xs-6.col-sm-4
+                        label.form-label(for="#{column}") #{global.getKeyNiceName(column)}
+                    .col-xs-6.col-sm-8
+                        if ( Array.isArray(field.options) )
+                            select.form-control(name="#{global.FORM_PREFIX}#{column}")
+                                each row in field.options
+                                    if( ! row.value ) 
+                                        - row.value = row.text;
+                                    -var selectedAttr = {};
+                                    if( row.value == field.selected ) 
+                                        -selectedAttr.selected = "selected";
+                                    option(value="#{row.value}")&attributes(selectedAttr) !{row.text}
+                        else if( typeof value === "string" && value.length > global.MIN_TEXT_AREA_LENGTH ) 
+                            textarea.form-control(name="#{global.FORM_PREFIX}#{column}") #{value}
+                        else
+                            input.form-control(name="#{global.FORM_PREFIX}#{column}", value="#{value}")
+            
+            .spacer
+                | &nbsp;
+            .form-group
+                .col-xs-12.col-sm-3.col-sm-offset-9
+                    input.form-control(type="submit", value="Add")
+                    input(type="hidden", name="submitted", value="1")

@@ -1,0 +1,15 @@
+extends ../../includes/layout
+
+block content
+    .container 
+        .actions
+            .button-bar
+                button.button.button-stable.button-block Actions
+            .col-xs-12.colored-rows
+                each value, column in fieldData
+                    .row.nice-row
+                        .col-xs-6.col-sm-4
+                            b #{column}
+                        .col-xs-6.col-sm-8
+                            | #{value}
+                p #{fieldData.description}

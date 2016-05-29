@@ -1,0 +1,8 @@
+include ../../includes/all_includes
+
+.upload-repeater
+    .file-upload-repeater(data-repeater-list='file_uploads')
+        +file_repeater_row("CAPTION", "file.txt", 0)
+    .col-xs-12.text-right
+        span#repeater-row-add.btn.btn-info.btn-md(data-repeater-create='')
+          span.glyphicon.glyphicon-plus Add

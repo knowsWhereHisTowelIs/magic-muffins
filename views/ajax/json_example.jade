@@ -1,0 +1,10 @@
+//- debugging through direct page view
+extends ../includes/layout
+
+block content
+    pre
+        | Is ajax? 
+        | #{JSON.stringify(request.xhr)}
+    pre
+        //- pretty print
+        | #{JSON.stringify(json, null, '\t')}

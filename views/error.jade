@@ -1,0 +1,12 @@
+extends includes/layout
+
+block content
+    h1 Sorry, an error has occured
+    
+    pre Message: #{message}
+    pre Status: #{error.status}
+    pre Is ajax: #{global.REQUEST.xhr}
+    pre Stack: #{error.stack}
+    pre Error: #{JSON.stringify(error)}
+    pre Params: #{JSON.stringify(global.REQUEST.params, null, 2)}
+    pre POST: #{JSON.stringify(global.REQUEST.body, null, 2)}

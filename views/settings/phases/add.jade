@@ -1,0 +1,40 @@
+extends ../../includes/layout
+
+block content
+    .container
+        .col-xs-12
+            each msg in msgs
+                p.alert.alert-info(role="alert") #{msg}
+            #error-msgs
+        //-pre !{JSON.stringify(results, NULL, 2)}
+        form.get_errors.col-xs-12.colored-rows(method="post")
+            .row.nice-row.form-group
+                label.col-xs-6.control-label Name
+                .col-xs-6
+                    input.form-control.required(type="text", name="#{global.FORM_PREFIX}name", required="required")
+
+            .row.nice-row.form-group
+                label.col-xs-6.control-label Phase
+                .col-xs-6
+                    input.form-control.required(type="text", name="#{global.FORM_PREFIX}phase", required="required")
+
+            .row.nice-row.form-group
+                label.col-xs-6.control-label Next Phase
+                .col-xs-6
+                    select.form-control(name="#{global.FORM_PREFIX}next_phase_id")
+                        option
+                        each phaseRow in otherPhases
+                            option(value="#{phaseRow.id}") #{phaseRow.phase}
+
+            .row.nice-row.form-group
+                label.col-xs-6.control-label Description
+                .col-xs-6
+                    textarea.form-control(type="text", name="#{global.FORM_PREFIX}description")
+
+            //p #{fieldData.description}
+            .spacer
+                | &nbsp;
+            .form-group
+                .col-xs-12.col-sm-3.col-sm-offset-9
+                    input.form-control(type="submit", value="Add")
+                    input(type="hidden", name="submitted", value="1")

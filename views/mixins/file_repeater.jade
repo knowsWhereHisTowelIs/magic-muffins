@@ -1,0 +1,11 @@
+//-
+    Example usage:
+            +file_repeater_row(caption, filename)
+
+mixin file_repeater()
+    .upload-repeater
+        .file-upload-repeater(data-repeater-list='file_uploads')
+            +file_repeater_row()
+        .col-xs-12.text-right
+            span#repeater-row-add.btn.btn-info.btn-md(data-repeater-create='')
+                span.glyphicon.glyphicon-plus Add

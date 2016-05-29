@@ -1,0 +1,25 @@
+extends ../includes/layout
+
+block content
+    #topnav
+        .container-fluid
+            .row
+                .col-xs-9
+                    .tnbutton
+                        a.btn.btn-default(href='/field-report/add/') Add Field Report
+                .col-xs-3 
+                    | &nbsp;
+    .container-fluid.table-title
+        .row
+            .col-xs-8
+                h1 Active Field Reports
+            .col-xs-4
+                .hidden
+                    a(href='#')
+                        i.icon-icon-asce
+                    a(href='#')
+                        i.icon-icon-desc
+    #projects.col-xs-12.ajax_content.ajax_table
+        div.ajax_table_content(data-paged='1')
+            p Loading...
+    

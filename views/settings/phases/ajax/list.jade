@@ -1,0 +1,33 @@
+//-generates the innerds of tables 2 be paired with ajax
+include ../../../includes/all_includes
+
+//-debugging
+if(0)
+    pre
+        | #{JSON.stringify(request.body, null, 2)}
+        | rows: #{JSON.stringify(rows, null, 2)}
+        | pageNum: #{JSON.stringify(pageNum, null, 2)}
+        | foundRows: #{JSON.stringify(foundRows, null, 2)}
+        | columns: #{JSON.stringify(columns, null, 2)}
+
+if typeof (rows) !== 'undefined' && rows.constructor === Array && rows.length > 0
+    +my_pagination(pageNum, foundRows)
+    
+    .container-fluid.col-xs-12.colored-rows
+        each row, rowIndex in rows
+            .row.nice-row
+                .col-xs-10
+                    p
+                        strong 
+                            | #{row.name}
+                .col-xs-2
+                    .rightarrow
+                        a.confirmClick(href='/settings/phases/delete/#{row.id}/')
+                            i.fa.fa-remove
+                        a(href='/settings/phases/edit/#{row.id}/')
+                            i.icon-icon-arrow-right
+                                 
+    +my_pagination(pageNum,foundRows)
+else
+    p Sorry, nothing was found.
+

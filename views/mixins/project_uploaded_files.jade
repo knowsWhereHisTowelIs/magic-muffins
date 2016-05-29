@@ -1,0 +1,50 @@
+//-
+    Example usage:
+            +project_uploaded_files(...)
+
+mixin project_uploaded_files(projectFiles, fieldReportPhases)
+    .already-uploaded
+        .project-files
+            h1 Project Files
+            .col-xs-12
+                if( projectFiles.length > 0 )
+                    ul.colored-rows
+                        each projectFile in projectFiles 
+                            li.row.nice-row
+                                .col-xs-4
+                                    b #{global.getUserNameById(projectFile.uid)}
+                                .col-xs-4
+                                    a(href="#{projectFile.link}")
+                                        if( projectFile.type.indexOf('image') !== -1 ) 
+                                            img(src="#{projectFile.link}", alt="#{projectFile.filename}")
+                                        else
+                                            p  #{projectFile.filename}
+                                .col-xs-4
+                                    p #{projectFile.caption}
+
+                    hr.spacer
+
+                    .field-report-files
+                        h1 Field Report Files
+                        .col-xs-12
+                            each phase in fieldReportPhases
+                                //-pre #{JSON.stringify(phase, null, 2)}
+                                if( phase.fieldReportFiles.length > 0 )
+                                    h2 Phase 
+                                        b #{phase.phase}
+                                    ul.colored-rows
+                                        each fieldReportFile in phase.fieldReportFiles 
+                                            li.row.nice-row
+                                                .col-xs-4
+                                                    b #{global.getUserNameById(fieldReportFile.uid)}
+                                                .col-xs-4
+                                                    a(href="#{fieldReportFile.link}")
+                                                        if( fieldReportFile.type.indexOf('image') !== -1 ) 
+                                                            img(src="#{fieldReportFile.link}", alt="#{fieldReportFile.filename}")
+                                                        else
+                                                            p  #{fieldReportFile.filename}
+                                                .col-xs-4
+                                                    p #{fieldReportFile.caption}
+
+                else
+                    p Project doesn't have any files yet

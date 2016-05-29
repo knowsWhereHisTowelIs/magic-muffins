@@ -1,0 +1,13 @@
+//-generates the innerds of tables 2 be paired with ajax
+include ../../includes/all_includes
+
+//-debugging
+    pre #{JSON.stringify(media, null, 2)}
+    pre #{JSON.stringify(mediaAttrs, null, 2)}
+
+if ( typeof media === 'object' && ! isNaN(media.id) )
+    //-.col-xs-12.field-uploaded-media-id-#{media.id}&attributes(mediaAttrs)
+    div(class="col-xs-12 field-uploaded-media-id-#{media.id}")&attributes(mediaAttrs)
+        img(src="#{media.link}")
+else
+    p Error

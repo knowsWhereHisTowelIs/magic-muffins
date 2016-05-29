@@ -1,0 +1,97 @@
+//-
+    Example usage:
+    div
+        +my_pagination(global.REQUEST.param('paged'), tableRows.length)
+
+mixin my_pagination(currentPageNum, rowsFound, pageRange, rowsPerPage)
+    -
+        currentPageNum = isNaN(currentPageNum) ? currentPageNum = 1 : parseInt(currentPageNum);
+        rowsPerPage = isNaN(rowsPerPage) ? rowsPerPage = global.ROWS_PER_PAGE : parseInt(rowsPerPage);
+        rowsFound = isNaN(rowsFound) ? rowsFound = 0 : parseInt(rowsFound);
+        pageRange = isNaN(pageRange) ? pageRange = global.DISPLAYED_PAGINATION_RANGE : parseInt(pageRange);
+
+        numOfPages = Math.ceil(rowsFound / global.ROWS_PER_PAGE);
+
+        var previousPageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+        var nextPageNum = currentPageNum < numOfPages ? currentPageNum + 1 : numOfPages;
+
+        var disabledClass = 'disabled';
+        var activeClass = 'active';
+        var firstPageClass = ( currentPageNum === 1 ) ? firstPageClass = activeClass + ' ' + disabledClass : '';
+        var nextPageClass = '';
+        var buttonClasses = 'btn btn-default';
+
+        if( currentPageNum === numOfPages ) 
+            nextPageClass = activeClass + ' ' + disabledClass;
+        else if( nextPage === numOfPages ) 
+            nextPageClass = disabledClass;
+
+    //- debugging
+        p currentPageNum: #{currentPageNum}
+        p rowsPerPage: #{rowsPerPage}
+        p rowsFound: #{rowsFound}
+        p pageRange: #{pageRange}
+        p numOfPages: #{numOfPages}
+        p previousPageNum: #{previousPageNum}
+        p nextPageNum: #{nextPageNum}
+        p firstPageClass: #{firstPageClass}
+        p nextPageClass: #{nextPageClass}
+
+    .col-xs-12.text-center
+        form.pagination(method='post', action='')
+            each value, key in global.REQUEST.body
+                if( key !== 'paged' )
+                    input(type='hidden', name='#{key}', value="#{value}")
+            input(type='hidden', name='paged', value='#{currentPageNum}')
+
+            h3 Found #{rowsFound}
+
+            button(type='button', class='#{firstPageClass} #{buttonClasses}', value='1', data-style='expand-left')
+                | <<
+            button(type='button', class='#{firstPageClass} #{buttonClasses}', value='#{previousPageNum}', data-style='expand-left')
+                | «
+
+            -for (var i = -pageRange; i < pageRange; i++)
+                - var pageNum = parseInt( i+currentPageNum );
+                if( pageNum > numOfPages ) 
+                    - break;
+                else if ( pageNum < 1 ) 
+                    - continue;
+                else
+                    - var pageClass = i === 0 ? activeClass : '';
+                    button(type='button', class='#{pageClass} #{buttonClasses}', value='#{pageNum}', data-style='expand-left')
+                        | #{pageNum}
+
+            button(type='button', class='#{nextPageClass} #{buttonClasses}', value='#{nextPageNum}', data-style='expand-left')
+                | »
+            button(type='button', class='#{nextPageClass} #{buttonClasses}', value='#{numOfPages}', data-style='expand-left')
+                | >>
+
+            //-
+                each value, key in global.REQUEST.body
+                    if( key !== 'paged' )
+                        input(type='hidden', name='#{key}', value="#{value}")
+                input(type='hidden', value='1')
+                
+                h3 Found #{rowsFound}
+
+                button(type='button', class='#{firstPageClass} #{buttonClasses}', value='1', data-style='expand-left')
+                    span.ladda-label <<
+                button(type='button', class='#{firstPageClass} #{buttonClasses}', value='#{previousPageNum}', data-style='expand-left')
+                    span.ladda-label «
+
+                - for (var i = -pageRange; i < pageRange; i++)
+                    - var pageNum = parseInt( i+currentPageNum );
+                    if( pageNum > numOfPages ) 
+                        - break;
+                    else if ( pageNum < 1 ) 
+                        - continue;
+                    else
+                        -var pageClass = i === 0 ? activeClass : '';
+                        button(type='button', class='#{pageClass} #{buttonClasses}', value='#{pageNum}', data-style='expand-left')
+                            span.ladda-label #{pageNum}
+
+                button(type='button', class='#{nextPageClass} #{buttonClasses}', value='#{nextPageNum}', data-style='expand-left')
+                    span.ladda-label »
+                button(type='button', class='#{nextPageClass} #{buttonClasses}', value='#{numOfPages}', data-style='expand-left')
+                    span.ladda-label >>

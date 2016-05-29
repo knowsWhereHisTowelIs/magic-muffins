@@ -1,0 +1,114 @@
+extends ../includes/layout
+
+block content
+    //-
+        pre.col-xs-12
+            | #{JSON.stringify(allPhases, null, 2)}
+            | #{JSON.stringify(project, null, 2)}
+
+    form.get_errors.container(method="post", enctype="multipart/form-data")
+        .row
+            each msg in msgs
+                p.alert.alert-info(role="alert") #{msg}
+            #error-msgs
+
+        .row
+            .actions
+                #view-details
+                    .col-xs-6.nopadding
+                        .col-xs-6
+                            label.form-control Date
+                        .col-xs-6
+                            input.form-control.datepicker(name="#{fieldReportPrefix}date", placeholder="DD-MM-YYYY")
+                    .col-xs-6.nopadding
+                        .col-xs-6
+                            label.form-control Time
+                        .col-xs-6
+                            input.form-control.timepicker(name="#{fieldReportPrefix}time", placeholder="XX:XX:XX")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-6.nopadding
+                        .col-xs-6
+                            label.form-control Weather Conditions
+                        .col-xs-6
+                            input.form-control(name="#{fieldReportPrefix}weather", placeholder="Weather Conditions")
+                    .col-xs-6.nopadding
+                        .col-xs-6
+                            label.form-control Built Before 1978?
+                        .col-xs-6
+                            input.form-control(name="#{fieldReportPrefix}built_before_1978", type="checkbox", value="1")
+
+                    .col-xs-12 &nbsp;
+                    
+                    .col-xs-6.nopadding
+                        .col-xs-6
+                            label.form-control Owner Sign Lead Pamphlet?
+                        .col-xs-6
+                            input.form-control(name="#{fieldReportPrefix}owner_sign_lead_pamphlet", type="checkbox", value="1")
+                    .col-xs-6.nopadding
+                        .col-xs-6
+                            label.form-control Customer Present?
+                        .col-xs-6
+                            input.form-control(name="#{fieldReportPrefix}customer_present", type="checkbox", value="1")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12.nopadding
+                        .col-xs-6
+                            label.form-control Customer
+                        .col-xs-6
+                            input.form-control(name="#{fieldReportPrefix}customer", placeholder="Customer")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12.nopadding
+                        .col-xs-6
+                            label.form-control Address
+                        .col-xs-6
+                            input.form-control(name="#{fieldReportPrefix}address", placeholder="1234 Main St.")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12.nopadding
+                        .col-xs-4
+                            input.form-control(name="#{fieldReportPrefix}city", placeholder="City")
+                        .col-xs-4
+                            input.form-control(name="#{fieldReportPrefix}state", placeholder="State")
+                        .col-xs-4
+                            input.form-control(name="#{fieldReportPrefix}zip", placeholder="Zip code")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-8
+                        input.form-control(name="#{fieldReportPrefix}insurance_company", placeholder="Insurance Co.")
+                    .col-xs-4
+                        input.form-control(name="#{fieldReportPrefix}claim_num", placeholder="Claim #")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12
+                        textarea.form-control(name="#{fieldReportPrefix}notes", placeholder="Field Report Notes")
+
+                    .col-xs-12 &nbsp;
+                #view-docs
+                    +file_repeater()
+        .row
+            .row.colored-rows                
+                .row.nice-row
+                    .col-xs-6
+                        label.form-label Project
+                    .col-xs-6
+                        select.form-control.project_id(name="#{fieldReportPrefix}project_id")
+                            option
+                            each project, i in projects
+                                option(value="#{project.id}", data-phase-id="#{project.current_phase_id}")  #{project.name}
+
+                //- phase fields
+                .col-xs-12.ajax_content.ajax_table
+                    div.ajax_table_content.ajax_fields(data-url='#{global.REQUEST.slashedUrl}get_fields/')
+                        p Loading...
+
+            .col-xs-12
+                input.btn.btn-default(type="submit", value="Add")
+                input(type="hidden", name="submitted", value="1")

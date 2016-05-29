@@ -1,0 +1,43 @@
+extends ../../includes/layout
+
+block content
+    #topnav
+        .container-fluid
+            .row
+                .col-xs-9
+                    .tnbutton
+                        a.btn.btn-default(href='#{global.REQUEST.slashedUrl}add/') Add New
+                .col-xs-3
+                    .navbar.navbar-default(role='navigation')
+                        .navbar-header
+                            a(role='button', data-toggle='collapse', href='#sortby', aria-expanded='false', aria-controls='collapseSort')
+                                i.icon-icon-menu
+            .spacer
+        form.collapse.ajax-sort#sortby
+                .container-fluid
+                    .row
+                        .col-xs-12
+                            h3 Sort By
+                    .row.sortrow
+                        .col-xs-12.col-md-8
+                            .col-xs-6
+                                label.sort-full-label Phase
+                            .col-xs-6
+                                select.multi(name='phase_id', multiple="multiple")
+                                    each row in phases
+                                        option(value="#{row.id}") #{row.name}
+                        .col-xs-offset-10.col-xs-2.col-md-offset-3.col-md-1
+                            button.btn.btn-search(type='submit')
+                                i.fa.fa-search
+        .container-fluid.table-title
+            .row
+                .col-xs-8
+                    h1 #{title}
+                .col-xs-4
+                    a(href='#')
+                        i.icon-icon-asce
+                    a(href='#')
+                        i.icon-icon-desc
+    .borderedBox.col-xs-12.ajax_content
+        div.ajax_table_content(data-paged='1', data-url='#{global.REQUEST.slashedUrl}get_list/')
+            p Loading...

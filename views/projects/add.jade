@@ -1,0 +1,86 @@
+extends ../includes/layout
+
+block content
+    //-
+        pre.col-xs-12
+            | #{JSON.stringify(allPhases, null, 2)}
+            | #{JSON.stringify(project, null, 2)}
+
+    form.get_errors.container(method="post", enctype="multipart/form-data")
+        .row
+            .col-xs-12
+                each msg in msgs
+                    p.alert.alert-info(role="alert") #{msg}
+                #error-msgs
+
+        .row
+            .actions
+                #view-details
+                    .col-xs-12
+                        input.form-control(name="#{projectPrefix}name", placeholder="Name") 
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12
+                        .col-xs-5
+                            label.form-label Current Phase
+                        .col-xs-7
+                            select.form-control.phase_id(name="#{projectPrefix}current_phase_id")
+                                option
+                                each phaseRow, index in allPhases
+                                    -var selectedAttr = {};
+                                    if( index === currentPhaseIndex ) 
+                                        -selectedAttr.selected = "selected";
+                                    option(value="#{phaseRow.id}")&attributes(selectedAttr) #{phaseRow.name} => #{phaseRow.phase}
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12
+                        textarea.form-control(name="#{projectPrefix}description", placeholder="Project Description")
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12
+                        input.form-control(name="#{projectPrefix}street", placeholder="1234 Main St.") 
+
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-4
+                        input.form-control(name="#{projectPrefix}city", placeholder="City") 
+                    .col-xs-4
+                        input.form-control(name="#{projectPrefix}state", placeholder="State") 
+                    .col-xs-4
+                        input.form-control(name="#{projectPrefix}zip", placeholder="Zip") 
+                
+                    .col-xs-12 &nbsp;
+
+                    .col-xs-12
+                        .col-xs-5
+                            label.form-label Manager
+                        .col-xs-7
+                            select.form-control(name="#{projectPrefix}manager_id")
+                                option
+                                each userRow, index in allUsers
+                                    option(value="#{userRow.id}") #{userRow.first} #{userRow.last}
+                .spacer &nbsp;
+
+                #view-docs
+                    +file_repeater()
+                                    
+        .spacer
+        
+        .row
+            .col-xs-12.ajax_content.ajax_table
+                div.ajax_table_content.ajax_fields(data-url='#{global.REQUEST.slashedUrl}get_fields/')
+                    p Loading...
+            
+            //- TODO Field reports?
+                .col-xs-12
+                    // field reports
+                    hr
+                    each report in fieldReports
+                        p #{report}
+        .row
+            .col-xs-12
+                input(type="hidden", name="submitted", value="1")
+                input.btn.btn-default(type="submit", value="Add")
